@@ -42,7 +42,7 @@ function onEvent({ el, event, handler, middleware }) {
   }
 }
 
-function bind(el, { value }) {
+export function bind(el, { value }) {
   const { events, handler, middleware, isActive } = processDirectiveArguments(
     value,
   )
@@ -67,7 +67,7 @@ function bind(el, { value }) {
   )
 }
 
-function unbind(el) {
+export function unbind(el) {
   const handlers = el[HANDLERS_PROPERTY] || []
   handlers.forEach(({ event, handler }) =>
     document.documentElement.removeEventListener(event, handler, false),

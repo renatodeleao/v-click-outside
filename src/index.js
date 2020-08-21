@@ -7,4 +7,5 @@ const plugin = {
   directive,
 }
 
+export { default as vClickOutsideMixin } from './mixin'
 export default plugin

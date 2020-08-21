@@ -9,13 +9,24 @@
       <div class="c13f10-box" v-click-outside="config">
         <p>Click Outside #c13f10 box</p>
       </div>
+      <div class="lime-box" ref="limeEl">
+        <p>Click Outside #lime box using exported functions</p>
+      </div>
+      <div class="tomato-box" ref="tomatoEl">
+        <p>Click Outside #tomato box using directive</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { vClickOutsideMixin } from '../../../src/index'
+import { bind, unbind } from '../../../src/v-click-outside'
+
 export default {
   name: 'home',
+
+  mixins: [vClickOutsideMixin],
 
   data() {
     return {
@@ -26,6 +37,16 @@ export default {
         events: ['click'],
       },
     }
+  },
+
+  mounted() {
+    bind(this.$refs.limeEl, { value: this.lime })
+    this.$_vco_bind(this.$refs.tomatoEl, this.tomato)
+  },
+
+  beforeDestroy() {
+    unbind(this.$refs.limeEl)
+    this.$_vco_unbind(this.$refs.tomatoEl)
   },
 
   methods: {
@@ -40,6 +61,12 @@ export default {
       console.log('Middleware!', ev)
       return true
     },
+    lime(ev) {
+      console.log('Clicked outside lime!', ev)
+    },
+    tomato(ev) {
+      console.log('Clicked outside tomato!', ev)
+    },
   },
 }
 </script>
@@ -53,6 +80,16 @@ export default {
 
 .c13f10-box {
   background-color: #c13f10;
+  height: 50px;
+}
+
+.lime-box {
+  background-color: lime;
+  height: 50px;
+}
+
+.tomato-box {
+  background-color: tomato;
   height: 50px;
 }
 </style>
