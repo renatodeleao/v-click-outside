@@ -1,4 +1,6 @@
-import { isVue3 } from 'vue-demi'
+const version = require('vue').version || require('vue').default.version
+
+export const isVue3 = /^3\./.test(version)
 
 // eslint-disable-next-line
 export const directiveHooks = {
